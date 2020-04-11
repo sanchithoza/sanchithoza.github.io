@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Gujarat Covid Info</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+             float: left;  
+            border: 1px solid #ddd;
+            margin:10px
+        }
+
+        th,
+        td {
+            text-align: center;
+            padding: 8px;
+            width: 75px;
+        }
+        #total{
+            font-weight: bolder;
+        }
+        
+    </style>
+</head>
+
+<body>
+    <div style="border:1px solid grey">
+    <div style="background-color: darkcyan;">
+        <h1>Gujarat covid 19 date-wise</h1>
+    </div>
+        <div id="all-state">
+            <table id="total" border="2">
+                <tr>
+                    <td colspan="2">
+                        Total
+                    </td>
+                </tr>
+                <tr>
+                    <td>Confirmed</td>
+                    <td id="tcnf"></td>
+                </tr>
+                <tr>
+                    <td>Recovered</td>
+                    <td id="trec"></td>
+                </tr>
+                <tr>
+                    <td>Deceased</td>
+                    <td id="tdec"></td>
+                </tr>
+                
+        </div>
+    </div>
+    <br>
+    <!--<table id="state-wise" border="1">
+        <tr id="state-wise-table-head">
+            <th>Date</th>
+            <th>Status</th>
+            <th>Count</th>
+        </tr>
+       
+    </table>-->
+
+    <script>
+        $(window).ready(function () {
+            $.get("https://api.covid19india.org/states_daily.json", function (data, status) {
+                $dates = [];
+                $confirmed = [];
+                $recovered = [];
+                $deceased = [];
+                $tcnf = 0;
+                $trec = 0;
+                $tdec = 0;
+                $data = data.states_daily.reverse();
+                $data.forEach(element => {
+                    $dates.push(element.date);
+                });
+                $data.forEach(element =>{
+                    if(element.status === "Confirmed"){
+                        $confirmed.push(element);
+                        $tcnf += parseInt(element.gj);
+                    }
+                });
+                $data.forEach(element =>{
+                    if(element.status === "Recovered"){
+                        $recovered.push(element);
+                        $trec += parseInt(element.gj);
+                    }
+                });
+                $data.forEach(element =>{
+                    if(element.status === "Deceased"){
+                        $tdec += parseInt(element.gj);
+                    }
+                });
+               // console.log($confirmed);
+                
+                //   $dates = [...new Set(data.date)];
+                $dates = $.unique($dates)
+                //console.log($dates);
+                $dates.forEach(date => {
+                    $raw = '<tr id="' + date + '"><td rowspan="3">' + date + '</td>';
+                    $data.forEach((element, index) => {
+                        if (element.date === date) {
+                            $raw += '<td>' + element.status + '</td>';
+                            $raw += '<td>' + element.tt + '</td>';
+                            $raw += '</tr><tr>';
+                        }
+
+                    });
+                    $raw += '</tr>';
+                    //console.log(element.date,element.status,element.gj);
+                    $('#state-wise').append($raw);
+                    
+                });
+                $dates.forEach(date => {
+                    $raw = '<table border="2"><tr id="' + date + '"><td colspan="2">' + date + '</td></tr>';
+                    
+                    $data.forEach((element, index) => {
+                        if (element.date === date) {
+                           $raw += '<tr><td>' + element.status + '</td>';
+                            $raw += '<td>' + element.gj + '</td>';
+                            $raw += '</tr>';
+                        }
+
+                    });
+                    $raw += '</table>';
+                    //console.log(element.date,element.status,element.gj);
+                    $('#all-state').append($raw);
+                    
+                });
+                $('#tcnf').append('<span>'+$tcnf+'</span>');
+                $('#trec').append('<span>'+$trec+'</span>');
+                $('#tdec').append('<span>'+$tdec+'</span>');
+            });
+
+        });
+    </script>
+</body>
+
+</html>
