@@ -24,11 +24,91 @@
         #total{
             font-weight: bolder;
         }
+        #title-div {
+            border: 3px solid dodgerblue;
+            width: 100%;
+            font-weight: bolder;
+            font-size: x-large;
+        }
+        div {
+            border-collapse: collapse;
+            border-spacing: 0;
+            float: left;
+            border: 1px solid #ddd;
+            margin: 5px;
+            padding: 10px;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        #lastUpdate {
+            font-weight: lighter !important;
+            font-size: small !important;
+            color: red !important;
+        }
+
+        #total-active {
+            width: 22%;
+            border: 3px solid red;
+            color: red;
+            font-weight: bolder;
+        }
+
+        #total-positive {
+            width: 22%;
+            border: 3px solid orange;
+            color: orange;
+            font-weight: bolder;
+        }
+
+        #total-death {
+            width: 22%;
+            border: 3px solid black;
+            color: black;
+            font-weight: bolder;
+        }
+
+        #total-recovery {
+            width: 22%;
+            border: 3px solid green;
+            color: green;
+            font-weight: bolder;
+        }
+        body {
+            padding-left: 2%;
+            padding-right: 4%;
+        }
         
     </style>
 </head>
 
 <body>
+    <div id="title-div">
+        Gujarat Covid - 19<br>
+
+        <span id="lastUpdate">Last updated @ </span><br>
+    
+
+    <div id="total-active">
+        <p>Total Active</p>
+        <h2 id="act"></h2>
+    </div>
+    <div id="total-positive">
+        <p>Total Positive</p>
+        <h2 id="pos"></h2>
+        <p id="todayPos">Today :</p>
+    </div>
+    <div id="total-death">
+        <p>Total Deaths</p>
+        <h2 id="dea"></h2>
+        <p id="todayDea">Today :</p>
+    </div>
+    <div id="total-recovery">
+        <p>Total Recovered</p>
+        <h2 id="rec"></h2>
+        <p id="todayRec">Today :</p>
+    </div>
+</div>
     <div style="border:1px solid grey">
     <div style="background-color: darkcyan;">
         <h1>Gujarat covid 19 date-wise</h1>
@@ -136,7 +216,22 @@
                 $('#trec').append('<span>'+$trec+'</span>');
                 $('#tdec').append('<span>'+$tdec+'</span>');
             });
+            $.get("https://api.covid19india.org/data.json", function (data, status) {
+                data.statewise.forEach(element => {
+                    if (element.statecode === 'GJ') {
+                        console.log(element);
+                        $('#lastUpdate').append(element.lastupdatedtime);
+                        $('#act').append(element.active);
+                        $('#pos').append(element.confirmed);
+                        $('#todayPos').append(element.deltaconfirmed);
+                        $('#dea').append(element.deaths);
+                        $('#todayDea').append(element.deltadeaths);
+                        $('#rec').append(element.recovered);
+                        $('#todayRec').append(element.deltarecovered);
+                    }
+                });
 
+            });
         });
     </script>
 </body>
