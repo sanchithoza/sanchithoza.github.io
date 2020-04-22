@@ -22,10 +22,11 @@
         }
         #total{
             font-weight: bolder;
+            background-color:lightsteelblue;
         }
         #title-div {
-            border: 3px solid dodgerblue;
-            width: 90%;
+    
+            width: 100%;
             font-weight: bolder;
             font-size: x-large;
         }
@@ -34,8 +35,8 @@
             border-spacing: 0;
             float: left;
             border: 1px solid #ddd;
-            margin: 5px;
-            padding: 10px;
+            margin: 5px 0;
+            padding: 0px;
             text-align: center;
             vertical-align: middle;
         }
@@ -47,39 +48,49 @@
         }
 
         #total-active {
-            width: 90%;
+            width: 100%;
             border: 3px solid red;
-            color: red;
+            color: white;
+            background-color: tomato;
             font-weight: bolder;
         }
 
         #total-positive {
-            width: 90%;
+            width: 100%;
             border: 3px solid orange;
-            color: orange;
+            color: white;
+            background-color: lightsalmon;
             font-weight: bolder;
         }
 
         #total-death {
-            width: 90%;
+            width: 100%;
             border: 3px solid black;
-            color: black;
+            color: white;
+            background-color: grey;
             font-weight: bolder;
         }
 
         #total-recovery {
-            width: 90%;
+            width: 100%;
             border: 3px solid green;
-            color: green;
+            color: white;
+            background-color: lightgreen;
             font-weight: bolder;
         }
-        body {
-            padding-left: 5%;
-            padding-right: 5%;
-        }
         #summery{
-            width: 90%;
+            width: 100%;
         }
+        .totCount{
+            font-size: 40px;
+        }
+        .boxTitle{
+            font-size: 25px;
+        }
+        .today{
+            font-size: 20px;
+        }
+
     </style>
 </head>
 
@@ -88,33 +99,33 @@
         Gujarat Covid - 19<br>
         <span id="lastUpdate">Last updated @ </span><br>
     </div>
-<div id="summery">
-    <div id="total-active">
-        <p>Total Active</p>
-        <h2 id="act"></h2>
+
+    <div id="total-active"> 
+        <span class="boxTitle">Total Active</span><br>
+        <span class="totCount" id="act"></span>
     </div>
     <div id="total-positive">
-        <p>Total Positive</p>
-        <h2 id="pos"></h2>
-        <p id="todayPos">Today :</p>
+        <span class="boxTitle">Total Positive</span><br>
+        <span class="totCount" id="pos"></span><br>
+        <span class="today" id="todayPos">Today : </span>
     </div>
     <div id="total-death">
-        <p>Total Deaths</p>
-        <h2 id="dea"></h2>
-        <p id="todayDea">Today :</p>
+        <span class="boxTitle">Total Deaths</span><br>
+        <span class="totCount" id="dea"></span><br>
+        <span class="today" id="todayDea">Today : </span>
     </div>
     <div id="total-recovery">
-        <p>Total Recovered</p>
-        <h2 id="rec"></h2>
-        <p id="todayRec">Today :</p>
+        <span class="boxTitle"> Total Recovered</span><br>
+        <span class="totCount" id="rec"></span><br>
+        <span class="today" id="todayRec">Today : </span>
     </div>
-</div>
-    <div style="border:1px solid grey; width:90%">
-    <div style="background-color: darkcyan; width: 90%;">
+
+    
+    <div style="background-color: darkcyan; width: 100%;">
         <h1>Gujarat covid 19 date-wise</h1>
     </div>
         <div id="all-state">
-            <table id="total" border="2">
+            <!--<table id="total" border="2">
                 <tr>
                     <td colspan="2">
                         Total
@@ -131,9 +142,9 @@
                 <tr>
                     <td>Deceased</td>
                     <td id="tdec"></td>
-                </tr>
+                </tr>-->
                 
-        </div>
+    
     </div>
     <br>
     <!--<table id="state-wise" border="1">
