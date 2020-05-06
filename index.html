@@ -105,12 +105,12 @@
         <div class="col-md-6">
             <div id="piechartContainer" style="height: 500px;"></div><br>   
         </div>
-        <div class="col-md-6">
+        <!--<div class="col-md-6">
             <div id="columnchartContainer" style="height: 500px;"></div>
             
-        </div>
+        </div>-->
     </div>
-    <!--<div class="row">
+    <div class="row">
         <div class="col-md-4" id="total-active">
             <span class="boxTitle">Total Active</span><br>
             <span class="totCount" id="act"></span>
@@ -131,7 +131,7 @@
             <span class="today" id="todayRec">Today : </span>
         </div>
     
-    </div>-->
+    </div>
     
    
 
@@ -232,7 +232,7 @@
                             animationEnabled: true,
                             data: [{
                                 type: "pie",
-                                startAngle: 160,
+                                startAngle: 150,
                                 toolTipContent: "<b>{label}</b>: {y}",
                                 showInLegend: "true",
                                 legendText: "{label}",
@@ -246,7 +246,10 @@
                             }]
                         };
                         $("#piechartContainer").CanvasJSChart(options);
-                        
+                        console.log(element.deltaconfirmed);
+                        dps = [];
+                        dps.push({ x: 1, y: element.deltaconfirmed, label: "New Cases" })
+                        if(!element.deltaconfirmed){
                         var chart = new CanvasJS.Chart("columnchartContainer",
                             {
                                 title: {
@@ -264,6 +267,7 @@
                             });
 
                         chart.render();
+                        }
                     }
                 });
 
