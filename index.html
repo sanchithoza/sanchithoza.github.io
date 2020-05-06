@@ -5,6 +5,7 @@
     <title>Gujarat Covid Info</title>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
         table {
@@ -121,41 +122,9 @@
     </div>
 
     
-    <div style="background-color: darkcyan; width: 100%;text-align: center;">
-        <h1>Gujarat covid 19 date-wise</h1>
-    </div>
-        <div id="all-state">
-            <!--<table id="total" border="2">
-                <tr>
-                    <td colspan="2">
-                        Total
-                    </td>
-                </tr>
-                <tr>
-                    <td>Confirmed</td>
-                    <td id="tcnf"></td>
-                </tr>
-                <tr>
-                    <td>Recovered</td>
-                    <td id="trec"></td>
-                </tr>
-                <tr>
-                    <td>Deceased</td>
-                    <td id="tdec"></td>
-                </tr>-->
-                
+    <div id="chartContainer" style="height: 300px; width: 100%;"></div>
+        <br>
     
-    </div>
-    <br>
-    <!--<table id="state-wise" border="1">
-        <tr id="state-wise-table-head">
-            <th>Date</th>
-            <th>Status</th>
-            <th>Count</th>
-        </tr>
-       
-    </table>-->
-
     <script>
         $(window).ready(function () {
             $.get("https://api.covid19india.org/states_daily.json", function (data, status) {
@@ -239,6 +208,31 @@
                         $('#todayDea').append(element.deltadeaths);
                         $('#rec').append(element.recovered);
                         $('#todayRec').append(element.deltarecovered);
+                        
+var options = {
+	title: {
+		text: "COVID-19 CASES IN GUJARAT [Total Confirmed Cases : "+element.confirmed+"]"
+	},
+	subtitles: [{
+		text: ""
+	}],
+	animationEnabled: true,
+	data: [{
+		type: "pie",
+		startAngle: 40,
+		toolTipContent: "<b>{label}</b>: {y}%",
+		showInLegend: "true",
+		legendText: "{label}",
+		indexLabelFontSize: 16,
+		indexLabel: "{label} - {y}",
+		dataPoints: [
+			{ y: element.active, label: "Total Active" },
+			{ y: element.deaths, label: "Total Death" },
+            { y: element.recovered, label: "Total Recovery" }
+		]
+	}]
+};
+$("#chartContainer").CanvasJSChart(options);
                     }
                 });
 
