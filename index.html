@@ -4,43 +4,39 @@
 <head>
     <title>Gujarat Covid Info</title>
 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
         table {
             border-collapse: collapse;
             border-spacing: 0;
-             float: left;  
+            float: left;
             border: 1px solid #ddd;
-            margin:10px
+            margin: 10px
         }
+
         th,
         td {
             text-align: center;
             padding: 8px;
             width: 75px;
         }
-        #total{
+
+        #total {
             font-weight: bolder;
-            background-color:lightsteelblue;
+            background-color: lightsteelblue;
         }
+
         #title-div {
-    
+
             width: 100%;
             font-weight: bolder;
             font-size: x-large;
         }
-        div {
-            border-collapse: collapse;
-            border-spacing: 0;
-            float: left;
-            border: 1px solid #ddd;
-            margin: 5px 0;
-            padding: 0px;
-            text-align: center;
-            vertical-align: middle;
-        }
+
 
         #lastUpdate {
             font-weight: lighter !important;
@@ -49,7 +45,7 @@
         }
 
         #total-active {
-            width: 100%;
+            
             border: 3px solid red;
             color: white;
             background-color: tomato;
@@ -57,7 +53,7 @@
         }
 
         #total-positive {
-            width: 100%;
+            
             border: 3px solid orange;
             color: white;
             background-color: lightsalmon;
@@ -65,7 +61,7 @@
         }
 
         #total-death {
-            width: 100%;
+            
             border: 3px solid black;
             color: white;
             background-color: grey;
@@ -73,58 +69,75 @@
         }
 
         #total-recovery {
-            width: 100%;
+            
             border: 3px solid green;
             color: white;
             background-color: lightgreen;
             font-weight: bolder;
         }
-        #summery{
+
+        #summery {
             width: 100%;
         }
-        .totCount{
+
+        .totCount {
             font-size: 40px;
         }
-        .boxTitle{
+
+        .boxTitle {
             font-size: 25px;
         }
-        .today{
+
+        .today {
             font-size: 20px;
         }
-
     </style>
 </head>
 
 <body>
-    <div id="title-div">
-        Gujarat Covid - 19<br>
-        <span id="lastUpdate">Last updated @ </span><br>
+    <div class="row">
+        <div class="col-md-12" style="text-align: center;">
+            <div id="title-div">
+                Gujarat Covid - 19<br>
+                <span id="lastUpdate">Last updated @ </span><br>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div id="piechartContainer" style="height: 500px; width: 100%;"></div><br>   
+        </div>
+        <div class="col-md-6">
+            <div id="columnchartContainer" style="height: 500px; width: 100%;"></div>
+            
+        </div>
     </div>
-
-    <div id="total-active"> 
-        <span class="boxTitle">Total Active</span><br>
-        <span class="totCount" id="act"></span>
-    </div>
-    <div id="total-positive">
-        <span class="boxTitle">Total Positive</span><br>
-        <span class="totCount" id="pos"></span><br>
-        <span class="today" id="todayPos">Today : </span>
-    </div>
-    <div id="total-death">
-        <span class="boxTitle">Total Deaths</span><br>
-        <span class="totCount" id="dea"></span><br>
-        <span class="today" id="todayDea">Today : </span>
-    </div>
-    <div id="total-recovery">
-        <span class="boxTitle"> Total Recovered</span><br>
-        <span class="totCount" id="rec"></span><br>
-        <span class="today" id="todayRec">Today : </span>
-    </div>
-
+    <!--<div class="row">
+        <div class="col-md-4" id="total-active">
+            <span class="boxTitle">Total Active</span><br>
+            <span class="totCount" id="act"></span>
+        </div>
+        <div class="col-md-4" id="total-positive">
+            <span class="boxTitle">Total Positive</span><br>
+            <span class="totCount" id="pos"></span><br>
+            <span class="today" id="todayPos">Today : </span>
+        </div>
+        <div class="col-md-4" id="total-death">
+            <span class="boxTitle">Total Deaths</span><br>
+            <span class="totCount" id="dea"></span><br>
+            <span class="today" id="todayDea">Today : </span>
+        </div>
+        <div class="col-md-4" id="total-recovery">
+            <span class="boxTitle"> Total Recovered</span><br>
+            <span class="totCount" id="rec"></span><br>
+            <span class="today" id="todayRec">Today : </span>
+        </div>
     
-    <div id="chartContainer" style="height: 300px; width: 100%;"></div>
-        <br>
+    </div>-->
     
+   
+
+
+    <br>
+
     <script>
         $(window).ready(function () {
             $.get("https://api.covid19india.org/states_daily.json", function (data, status) {
@@ -139,25 +152,25 @@
                 $data.forEach(element => {
                     $dates.push(element.date);
                 });
-                $data.forEach(element =>{
-                    if(element.status === "Confirmed"){
+                $data.forEach(element => {
+                    if (element.status === "Confirmed") {
                         $confirmed.push(element);
                         $tcnf += parseInt(element.gj);
                     }
                 });
-                $data.forEach(element =>{
-                    if(element.status === "Recovered"){
+                $data.forEach(element => {
+                    if (element.status === "Recovered") {
                         $recovered.push(element);
                         $trec += parseInt(element.gj);
                     }
                 });
-                $data.forEach(element =>{
-                    if(element.status === "Deceased"){
+                $data.forEach(element => {
+                    if (element.status === "Deceased") {
                         $tdec += parseInt(element.gj);
                     }
                 });
-               // console.log($confirmed);
-                
+                // console.log($confirmed);
+
                 //   $dates = [...new Set(data.date)];
                 $dates = $.unique($dates)
                 //console.log($dates);
@@ -174,14 +187,14 @@
                     $raw += '</tr>';
                     //console.log(element.date,element.status,element.gj);
                     $('#state-wise').append($raw);
-                    
+
                 });
                 $dates.forEach(date => {
                     $raw = '<table border="2"><tr id="' + date + '"><td colspan="2">' + date + '</td></tr>';
-                    
+
                     $data.forEach((element, index) => {
                         if (element.date === date) {
-                           $raw += '<tr><td>' + element.status + '</td>';
+                            $raw += '<tr><td>' + element.status + '</td>';
                             $raw += '<td>' + element.gj + '</td>';
                             $raw += '</tr>';
                         }
@@ -190,11 +203,11 @@
                     $raw += '</table>';
                     //console.log(element.date,element.status,element.gj);
                     $('#all-state').append($raw);
-                    
+
                 });
-                $('#tcnf').append('<span>'+$tcnf+'</span>');
-                $('#trec').append('<span>'+$trec+'</span>');
-                $('#tdec').append('<span>'+$tdec+'</span>');
+                $('#tcnf').append('<span>' + $tcnf + '</span>');
+                $('#trec').append('<span>' + $trec + '</span>');
+                $('#tdec').append('<span>' + $tdec + '</span>');
             });
             $.get("https://api.covid19india.org/data.json", function (data, status) {
                 data.statewise.forEach(element => {
@@ -208,31 +221,49 @@
                         $('#todayDea').append(element.deltadeaths);
                         $('#rec').append(element.recovered);
                         $('#todayRec').append(element.deltarecovered);
+
+                        var options = {
+                            title: {
+                                text: "Total Confirmed Cases : " + element.confirmed
+                            },
+                            subtitles: [{
+                                text: ""
+                            }],
+                            animationEnabled: true,
+                            data: [{
+                                type: "pie",
+                                startAngle: 40,
+                                toolTipContent: "<b>{label}</b>: {y}%",
+                                showInLegend: "true",
+                                legendText: "{label}",
+                                indexLabelFontSize: 16,
+                                indexLabel: "{label} - {y}",
+                                dataPoints: [
+                                    { y: element.active, label: "Total Active" },
+                                    { y: element.deaths, label: "Total Death" },
+                                    { y: element.recovered, label: "Total Recovery" }
+                                ]
+                            }]
+                        };
+                        $("#piechartContainer").CanvasJSChart(options);
                         
-var options = {
-	title: {
-		text: "COVID-19 CASES IN GUJARAT [Total Confirmed Cases : "+element.confirmed+"]"
-	},
-	subtitles: [{
-		text: ""
-	}],
-	animationEnabled: true,
-	data: [{
-		type: "pie",
-		startAngle: 40,
-		toolTipContent: "<b>{label}</b>: {y}%",
-		showInLegend: "true",
-		legendText: "{label}",
-		indexLabelFontSize: 16,
-		indexLabel: "{label} - {y}",
-		dataPoints: [
-			{ y: element.active, label: "Total Active" },
-			{ y: element.deaths, label: "Total Death" },
-            { y: element.recovered, label: "Total Recovery" }
-		]
-	}]
-};
-$("#chartContainer").CanvasJSChart(options);
+                        var chart = new CanvasJS.Chart("columnchartContainer",
+                            {
+                                title: {
+                                    text: "Today's Update of Gujarat"
+                                },
+                                data: [
+                                    {
+                                        dataPoints: [
+                                            { x: 1, y: element.deltaconfirmed, label: "New Cases" },
+                                            { x: 2, y: element.deltadeaths, label: "Death" },
+                                            { x: 3, y: element.deltarecovered, label: "Recovery" }
+                                        ]
+                                    }
+                                ]
+                            });
+
+                        chart.render();
                     }
                 });
 
