@@ -251,9 +251,16 @@
                         var deltacnf = parseInt(element.deltaconfirmed) || 0;
                         var deltadea = parseInt(element.deltadeaths) || 0;
                         var deltarec = parseInt(element.deltarecovered) || 0;
+                       
                         console.log(deltacnf,deltadea,deltarec);
                         
-                      //  if(deltacnf > 0 ){
+                        if(deltacnf != 0){
+                            var tcnf = deltacnf;
+                            var tdea = deltadea;
+                            var trec = deltarec;
+                        }
+                        //var fdate = 
+                        
                         var chart = new CanvasJS.Chart("columnchartContainer",
                             {
                                 title: {
@@ -262,16 +269,16 @@
                                 data: [
                                     {
                                         dataPoints: [
-                                            { x: 1, y: deltacnf, label: "New Cases" },
-                                            { x: 2, y: deltadea, label: "Death" },
-                                            { x: 3, y: deltarec, label: "Recovery" }
+                                            { x: 1, y: tcnf, label: "New Cases" },
+                                            { x: 2, y: tdea, label: "Death" },
+                                            { x: 3, y: trec, label: "Recovery" }
                                         ]
                                     }
                                 ]
                             });
 
                         chart.render();
-                      //  }
+                        
                     }
                 });
 
