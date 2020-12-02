@@ -144,6 +144,12 @@
 
     <script>
         $(window).ready(function () {
+             $.get("https://api.covid19india.org/states_daily.json", function (data, status) {
+                data.foreach(element =>{
+                    console.log(element);
+                });
+             });
+            
             $.get("https://api.covid19india.org/states_daily.json", function (data, status) {
                 $dates = [];
                 $confirmed = [];
