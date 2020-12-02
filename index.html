@@ -147,6 +147,7 @@
              $.get("https://api.covid19india.org/states_daily.json", function (data, status) {
                  
                 $data = data.Gujarat;
+                 console.log($data,data.Gujarat);
                  $data.forEach(element =>{
                     console.log(element);
                 });
