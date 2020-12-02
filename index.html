@@ -251,9 +251,9 @@
                         var deltacnf = parseInt(element.deltaconfirmed) || 0;
                         var deltadea = parseInt(element.deltadeaths) || 0;
                         var deltarec = parseInt(element.deltarecovered) || 0;
-                        var tcnf =100;
-                        var tdea=200;
-                        var trec=300;
+                        var tcnf =0;
+                        var tdea=0;
+                        var trec=0;
                         console.log(deltacnf,deltadea,deltarec,element.active);
                         
                         if(deltacnf != 0){
@@ -266,7 +266,7 @@
                         var chart = new CanvasJS.Chart("columnchartContainer",
                             {
                                 title: {
-                                    text: "Today's Update of Gujarat"
+                                    text:  `Today's Update of Gujarat as on ${element.lastupdatedtime}`
                                 },
                                 data: [
                                     {
