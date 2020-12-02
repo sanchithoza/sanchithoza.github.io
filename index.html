@@ -216,7 +216,7 @@
             $.get("https://api.covid19india.org/data.json", function (data, status) {
                 data.statewise.forEach(element => {
                     if (element.statecode === 'GJ') {
-                        //console.log(element);
+                        console.log(element);
                         $('#lastUpdate').append(element.lastupdatedtime);
                         $('#act').append(element.active);
                         $('#pos').append(element.confirmed);
