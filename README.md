@@ -4,4 +4,4 @@
 - [Visit Facebook Page](https://facebook.com/yourpage)
 - [Follow on Instagram](https://instagram.com/yourprofile)
 - [Join Telegram Channel](https://t.me/yourchannel)
-- [Visit WeURL](https://weurl.co/yourlink)
+- [Visit Vested](vestedfinance.com)
